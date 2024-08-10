@@ -26,6 +26,10 @@
 
 따라서 우리는 public interface 뒤에 숨겨진 private 한 information 을 가지게 된다.
 
+>[!note]
+>private information 에는 
+>각객체 내부 상세 구현이나 데이터가 될 수 있다.
+
 >when an object receives a message,\
 >it may in turn send messages to other objects.
 
@@ -67,6 +71,14 @@ references를 보내는것이 아니다.
 >I've never seen a Java or C sharp code base that ever follow this rule. 
 
 나는 이 규칙을 따르는 Java나 C# 코드베이스를 본 적이 없다.
+\
+>[!Note]
+>아주 흥미로운 말이다.\
+>그냥 사용하다 보니 이런 생각을 해보지 않았다.\
+>alan kay 가 말한 초기 oop는 상태와, 프로세스가 결합된 하나의 객체가 캡슐화 를 통해서 다른 객체가 내부 상태에와 프로세스에 대한 접근을 하지 못하도록 막는다.\
+>메시지가 객체간의 의사소통고 맞다 메시지는 참조를 제공할수 없다.\
+>모든 제공은 copy 본이어야 한다.\
+>그러나 위 rule을 지키는 java 코드와 csharp 코드를 본적이 없다.
 
 >Perhaps some small talk programs have, but in general this rule is not observed at all,\
 >and probably for good reason, as we'll discuss. 
@@ -434,3 +446,5 @@ A의 부모에서도 같은 일이 일어난다.
 >You'll have all these objects giving you a warm fuzzy feeling of encapsulation, but you're not going to have any real encapsulation of any signification
 
 당신은 이 모든 객체들이 주는 캡슐화의 따뜻하고 모호한 느낌을 가지겠지만, 어떤 의미로도 실제로 캡슐화 하지 못할 것 입니다.
+
+
