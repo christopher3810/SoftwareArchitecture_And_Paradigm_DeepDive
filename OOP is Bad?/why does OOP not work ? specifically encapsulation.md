@@ -1,5 +1,5 @@
 
-> Object-Oriented Programming is Bad 라는 유튜브 영상에서
+> Object-Oriented Programming is Bad 라는 유튜브 영상에서\
 > encapsulation 에 대해서 이야기하는 부분이 매우 흥미롭게 다가 와서 정리를 해보았다.
 
 [Object-Oriented Programming is Bad (Brian Will Youtube)](https://www.youtube.com/watch?v=QM1iUe6IofM)
@@ -17,7 +17,7 @@
 외부 세계에서 그 상태와의 모든 상호작용은 객체에 대한 메시지, 즉 객체로 전달되는 메시지를 통해 이루어진다.
 
 
->the object has a defined set of messages which it will receive,
+>the object has a defined set of messages which it will receive,\
 >called its public interface.
 
 객체는 받을 수 있는 메시지들의 정의된 집합을 가지고 있으며, 이를 public interface 라고 부른다.
@@ -26,7 +26,7 @@
 
 따라서 우리는 public interface 뒤에 숨겨진 private 한 information 을 가지게 된다.
 
->when an object receives a message, 
+>when an object receives a message,\
 >it may in turn send messages to other objects.
 
 객체가 메시지를 받으면, 그 객체는 차례로 다른 객체들에게 메시지를 보낼 수 있다.
@@ -68,24 +68,25 @@ references를 보내는것이 아니다.
 
 나는 이 규칙을 따르는 Java나 C# 코드베이스를 본 적이 없다.
 
->Perhaps some small talk programs have, but in general this rule is not observed at all, and probably for good reason, as we'll discuss. 
+>Perhaps some small talk programs have, but in general this rule is not observed at all,\
+>and probably for good reason, as we'll discuss. 
 
 아마도 일부 Smalltalk 프로그램들이 이를 따랐을 수 있지만, 일반적으로 이 규칙은 전혀 지켜지지 않습니다. 그리고 아마도 그럴 만한 이유가 있을 것이다. 
 
 이에 대해 논의해 보자.
 
->But anyway, if we take the role seriously, 
+>But anyway, if we take the role seriously,\
 >it means then for an object to send a message to another object, the first object must hold a private reference to that other object, because otherwise how is it going to talk to it? 
 
-하지만 어쨌든, 이 규칙을 진지하게 받아들인다면, 
-한 객체가 다른 객체에게 메시지를 보내려면, 
-첫 번째 객체가 다른 객체에 대한 private 참조를 가지고 있어야 한다는 의미이다. 
+하지만 어쨌든, 이 규칙을 진지하게 받아들인다면,\
+한 객체가 다른 객체에게 메시지를 보내려면,\
+첫 번째 객체가 다른 객체에 대한 private 참조를 가지고 있어야 한다는 의미이다.\
 그렇지 않으면 어떻게 그 객체와 메시지를 주고받을 수 있겠습니까?
 
->To talk to an object,
+>To talk to an object,\
 >the object thereafter has a reference to it.  
 
-객체와 메시지를 주고 받으려면,
+객체와 메시지를 주고 받으려면,\
 객체는 그에 대한 참조를 가져야 한다.
 
 >And where is an object to need get a reference to another object if it can't get object references from messages.
@@ -102,13 +103,13 @@ references를 보내는것이 아니다.
 
 >which is that if an object is sending messages to another, that other object is part of the first object's private state.
 
-즉, 한 객체가 다른 객체에게 메시지를 보내고 있다면, 
+즉, 한 객체가 다른 객체에게 메시지를 보내고 있다면,\
 그 다른 객체는 첫 번째 객체의 비공개 상태의 일부이다.
 
->And by the principle of encapsulation, 
+>And by the principle of encapsulation,\
 >an object should be responsible for all the objects which it sends messages to. 
 
-그리고 캡슐화 원칙에 따르면, 
+그리고 캡슐화 원칙에 따르면,\
 객체는 자신이 메시지를 보내는 모든 객체들에 대해 책임을 져야 한다.
 
 ![mmrams](https://github.com/user-attachments/assets/4e8af7b2-e13c-41a8-a1d5-a8bf91b66ad0)
@@ -117,9 +118,10 @@ references를 보내는것이 아니다.
 
 메시지가 간접적으로 상태를 읽고 수정한다는 점을 고려하면 이는 분명해진다.
 
->when B send a message to A , here it's messing with the state of A, indirectly sure, but is still messing with it's state. 
+>when B send a message to A , here it's messing with the state of A, indirectly sure,\ 
+>but is still messing with it's state. 
 
- B가 A에게 메시지를 보낼 때, 여기서 B는 A의 상태를 간접적으로 건드리고 있다.
+ B가 A에게 메시지를 보낼 때, 여기서 B는 A의 상태를 간접적으로 건드리고 있다.\
  간접적이긴 하지만, 여전히 A의 상태를 건드리고 있는 것이다,
 
 ![mmrams2](https://github.com/user-attachments/assets/0d8bb9f6-c058-4a24-9000-e5f31b0b4abc)
@@ -128,10 +130,11 @@ references를 보내는것이 아니다.
 
 그리고 다른 객체들이 와서 같은 객체에 메시지를 보낼 때도 마찬가지이다.
 
->what's happening here? 
+>what's happening here?\
 >we have shared state.
 
-여기서 무슨 일이 일어나고 있나요? 우리는 공유 상태를 가지고 있다.
+여기서 무슨 일이 일어나고 있나요? 
+우리는 상태를 공유하고 있다.
 
 >it's hardly any different than if you had a single global variable being shared by, say, ten functions.
 
@@ -139,17 +142,18 @@ references를 보내는것이 아니다.
 
 >if you have an object receiving messages from ten other objects, those objects are all effectively tied together because they're implicitly sharing this state.
 
-만약 한 객체가 다른 열 개의 객체로부터 메시지를 받고 있다면, 이 객체들은 모두 효과적으로 묶여 있다. 
+만약 한 객체가 다른 열 개의 객체로부터 메시지를 받고 있다면,\
+이 객체들은 모두 효과적으로 묶여 있다.\
 왜냐하면 그들은 암묵적으로 이 상태를 공유하고 있기 때문이다.
 
 >Sure, the interactions with that state indirect through public methods, but those methods are providing ver trivial kinds of coordination of the state. 
 
-물론, 그 상태와의 상호작용은 공개 메서드를 통해 간접적으로 이루어진다.
+물론, 그 상태와의 상호작용은 공개 메서드를 통해 간접적으로 이루어진다.\
 하지만 이 메서드들은 상태의 매우 사소한 종류의 조정만을 제공하고 있다,
 
 >you can impose rules throught the access or methods, like saying if you access this field it's a number, well you can only increment that number, you can't mutate it in any other way. 
 
-접근자나 메서드를 통해 규칙을 부과할 수 있다,
+접근자나 메서드를 통해 규칙을 부과할 수 있다,\
 예를 들어, 이 필드에 접근하면 그것은 숫자이고, 당신은 그 숫자를 증가시킬 수만 있고 다른 방식으로는 변경할 수 없다고 말할 수 있다.
 
 >Find, but it's a very trivial kind of protection. 
@@ -204,7 +208,7 @@ references를 보내는것이 아니다.
 
 ![hierachy of references2](https://github.com/user-attachments/assets/d4897a6c-ef15-47a3-a47f-80e78ffb89f9)
 
->it has to do all of its interactions with this grandchild 
+>it has to do all of its interactions with this grandchild\
 >indirectly through the gran child's parent. 
 
 god 객체는 손자와의 모든 상호작용을 손자의 부모를 통해 간접적으로 해야 한다.
@@ -284,8 +288,8 @@ A의 부모에서도 같은 일이 일어난다.
 >obviously no one writes programs this way, or at least no one wirtes whole programs this way. 
 >and for good reason, is an absurd way to have to writes whole programs. 
 
-명백히 아무도 이런 방식으로 프로그램을 작성하지 않는다. 
-적어도 전체 프로그램을 이런 식으로 작성하는 사람은 없으며,
+명백히 아무도 이런 방식으로 프로그램을 작성하지 않는다.\
+적어도 전체 프로그램을 이런 식으로 작성하는 사람은 없으며,\
 합당한 이유로 전체 프로그램을 이런 식으로 작성해야 한다는 것은 터무니없는 방법이라고 말할 수 있다.
 
 >now you might argue that people do follow these principles in practice, they just do so inconsistently. 
@@ -308,7 +312,7 @@ A의 부모에서도 같은 일이 일어난다.
 >so imagine we have some sort of freeform graph of objects making up a program, 
 >and we decide, oh well, there's this subsystem of objects that together should be their own self-contained encapsulated hierarchy of objects. 
 
-그래서 우리가 프로그램을 구성하는 일종의 자유형 객체 그래프를 가지고 있다고 상상해 보자. 
+그래서 우리가 프로그램을 구성하는 일종의 자유형 객체 그래프를 가지고 있다고 상상해 보자.\
 "음, 이 객체들의 하위 시스템이 함께 자체 포함된 캡슐화된 객체 계층 구조가 되어야 해."
 라고 우리는 결정한다.
 
@@ -333,11 +337,11 @@ A의 부모에서도 같은 일이 일어난다.
 
 이제 하위 시스템과의 모든 상호작용은 이 작은 god을 통과하는 것으로 재개념화되어야 한다.
 
->so say we successfully do this refactoring, 
->and now while our code doesn't follow the principles of encapsulation perfectly, 
+>so say we successfully do this refactoring,\
+>and now while our code doesn't follow the principles of encapsulation perfectly,\
 >it's doing so in a half consistent way. 
 
-그래서 우리가 이 리팩터링을 성공적으로 수행했다고 해보자.
+그래서 우리가 이 리팩터링을 성공적으로 수행했다고 해보자.\
 이제 우리의 코드가 캡슐화 원칙을 완벽하게 따르지는 않지만, 반쯤 일관된 방식으로 그렇게 하고 있다.
 
 >And maybe there's some benefit there. 
@@ -348,7 +352,7 @@ A의 부모에서도 같은 일이 일어난다.
 
 >Well,  i think what tends to happen is subsequently we decide, oh wait, we need some new interaction between elements of this encapsulated subsystem.
 
-음, 내 생각에 그 후에 일어나는 경향이 있는 일은 우리가 이렇게 결정하는 것이다.
+음, 내 생각에 그 후에 일어나는 경향이 있는 일은 우리가 이렇게 결정하는 것이다.\
 "어, 잠깐, 우리는 이 캡슐화된 하위 시스템의 요소들 사이에 새로운 상호작용이 필요해."
 
 ![zoo subsystem 2](https://github.com/user-attachments/assets/d908017e-27d5-4b89-a237-d1b8c85dad0d)
@@ -410,7 +414,7 @@ A의 부모에서도 같은 일이 일어난다.
 
 >If you follow the rule strictly, most things you do end up at being very unobviously structure and very indirect, and the number of  find entities code base paraphrase the site nature. entities tends to be very abstract and nebulous. 
 
-규칙을 엄격하게 따르면, 당신이 하는 대부분의 일들이 매우 불분명한 구조와 매우 간접적인 것으로 끝나게 되고, 코드베이스에서 발견되는 엔티티의 수가 사이트의 본질을 바꿔 말하게 된다. 
+규칙을 엄격하게 따르면, 당신이 하는 대부분의 일들이 매우 불분명한 구조와 매우 간접적인 것으로 끝나게 되고,\ 코드베이스에서 발견되는 엔티티의 수가 사이트의 본질을 바꿔 말하게 된다.\
 엔티티들은 매우 추상적이고 모호한 경향이 있다.
 
 >But alternatively, if you follow the rules loosely, what are you even getting why are you bothering? 
@@ -420,7 +424,7 @@ A의 부모에서도 같은 일이 일어난다.
 
 >What is the point? 
 
-요점이 뭐죠?
+어떤게 중요하죠?
 
 >When i look at your object-oriented code base, 
 >What i'm going to encounter is either this over-engineered giant tower of abstraction,  or i'm going to be looking at this inconsistently architected pile of objects that are all probably tangled together like christmas lights. 
