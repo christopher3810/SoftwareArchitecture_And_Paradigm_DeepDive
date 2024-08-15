@@ -3,11 +3,17 @@
     <h1>All That Object-Oriented-Programming 🗄️✨</h1>
 </div>
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/christopher3810/Object-Oriented-Programming?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/christopher3810/Object-Oriented-Programming?style=for-the-badge)
-
+>OOP to me means only messaging, local retention and protection and 
+>hiding of state-process, and extreme late-binding of all things.\
+>It can be done in Smalltalk and in LISP. There are possibly other 
+>systems in which this is possible, but I'm not aware of them.\
+>Cheers,  
+>Alan
+>-Alan kay-
+>in [email to stefan Ram](https://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en)
+  
 > All That Object-Oriented-Programming\
 > 객체지향에 관련된 모든 것.
-
 
 ### ✨ 표기법
 ---
