@@ -5,11 +5,11 @@
 
 >OOP to me means only messaging, local retention and protection and 
 >hiding of state-process, and extreme late-binding of all things.\
->It can be done in Smalltalk and in LISP. There are possibly other 
->systems in which this is possible, but I'm not aware of them.\
->Cheers,  
->Alan
->-Alan kay-
+>It can be done in Smalltalk and in LISP.\ 
+>There are possibly other systems in which this is possible, but I'm not aware of them.\
+>Cheers,\
+>Alan\
+>-Alan kay-\
 >in [email to stefan Ram](https://userpage.fu-berlin.de/~ram/pub/pub_jf47ht81Ht/doc_kay_oop_en)
   
 > All That Object-Oriented-Programming\
