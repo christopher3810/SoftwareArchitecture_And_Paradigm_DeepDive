@@ -7,5 +7,5 @@
 
 > "The programmer, like the poet, works only slightly re- moved from pure thought-stuff. 
 > He builds his castles in the air, from air, creating by exertion of the imagination."\
-> -Frederick Phillips Brooks Jr(Fred Brooks).-\ 
+> -Frederick Phillips Brooks Jr(Fred Brooks)-\
 > in the mythical man-month
