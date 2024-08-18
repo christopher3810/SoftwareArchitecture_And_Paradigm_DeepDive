@@ -62,15 +62,17 @@ Flyweight 패턴은 객체지향 프로그래밍에서 사용되는 구조적 �
   
 텍스트 편집기에서 각 문자를 객체로 표현한다고 예를 든다면.
 
-**비효율적 방식**
+```text
+비효율적 방식
 
 각 문자 객체가 폰트, 크기, 스타일 정보를 모두 포함한다.
 
-**Flyweight 활용 시**
+Flyweight 활용 시
 
 문자 코드만 개별 객체에 저장하고, 폰트 정보는 공유한다.
+```
 
-**장점**
+#### **장점**
 
 **1. 메모리 사용 최적화**  
 대규모 문서나 복잡한 그래픽 인터페이스에서 수많은 객체를 생성해야 할 때, 각 객체가 독립적으로 모든 상태를 유지한다면 메모리 사용량이 급격히 증가하는데.  
@@ -86,9 +88,10 @@ Glyphs 개념은 이 문제를 **단순하고 일관된 인터페이스를 가�
 기존의 무거운 컴포넌트들은 특정 용도에 맞춰 설계되어 있어, 새로운 요구사항에 적응하기 어려웠다.  
 Flyweight 패턴과 Glyphs 접근 방식은 **작은 단위의 객체들을 조합하여 다양한 인터페이스를 구성**할 수 있게 함으로써 이 문제를 해결한다.  
   
-이렇게 대량의 객체를 효율적으로 관리함으로써, 렌더링 속도와 전반적인 애플리케이션 성능을 개선할 수 있었다.
+대량의 객체를 효율적으로 관리함으로써, 렌더링 속도와 전반적인 애플리케이션 성능을 개선할 수 있었다.
 
-초기의 논문 코드들을 한번 확인해 보자.
+
+자 이제 초기의 논문 코드들을 한번 확인해 보자.
 
 ### Flyweight Objects for User Interfaces.
 
@@ -216,7 +219,8 @@ GoF(Gang of Four)의 Design Pattern에서는 어떻게 설명할까?
 
 논문 코드와 크게 다르지 않다.
 
-**결국 'a'라는 글자를 갖고 있는 객체는 글자 코드를 저장하지만 위치나 폰트는 저장하지 않는다.**
+>[!Important]
+>결국 'a'라는 글자를 갖고 있는 객체는 글자 코드를 저장하지만 위치나 폰트는 저장하지 않는다.
 
 논문과 책의 약간의 차이가 존재하는데 software pattern 구조가 좀 더 정형화되었다.
 
@@ -237,26 +241,21 @@ Gof Design Pattern에서는 FlyweightFactory를 활용하여 Flyweight 객체의
 출처-https://www.cs.unc.edu/~stotts/GOF/hires/pat4ffso.htm
 
 
-**Flyweight(Glyph)**\ 
-extrinsic state에 대해서 동작할 수 있는 인터페이스.
+1. Flyweight(Glyph) - extrinsic state에 대해서 동작할 수 있는 인터페이스.
 
-**ConcreteFlyweight(Character)**\
-Flyweight 인터페이스를 구현하고 내부적으로 intrinsic state에 대한 저장소를 정의, 반드시 sharable 즉 공유 가능해야 한다.
+2. ConcreteFlyweight(Character) -Flyweight 인터페이스를 구현하고 내부적으로 intrinsic state에 대한 저장소를 정의, 반드시 sharable 즉 공유 가능해야 한다.
 
-**UnsharedConcreteFlyWeight(Row, Column)**\ 
-모든 플라이급 서브클래스들이 공유될 필요는 없다.\
-Flyweight 인터페이스는 공유는 할 수 있다.\
-UnsharedConcreteFlyweight 객체가 Concrete- Flyweight 객체를 자신의 자식으로 갖는 것은 흔한 일이다.
+3. UnsharedConcreteFlyWeight(Row, Column) - 모든 플라이급 서브클래스들이 공유될 필요는 없다.\
+   Flyweight 인터페이스는 공유는 할 수 있다.\
+   UnsharedConcreteFlyweight 객체가 Concrete- Flyweight 객체를 자신의 자식으로 갖는 것은 흔한 일이다.
 
-**FlyweightFactory**\
-플라이급 객체를 생성하고 관리하며, 플라이급 객체가 제대로 공유되도록 보장한다.\ 
-사용자가 플라이급 객체를 요청하면 Flyweight- Factory 객체는 이미 존재하는 인스턴스를 제공, 만약 존재하지 않는다면 새로 생성.
+4. FlyweightFactory - 플라이급 객체를 생성하고 관리하며, 플라이급 객체가 제대로 공유되도록 보장한다.\
+   사용자가 플라이급 객체를 요청하면 Flyweight- Factory 객체는 이미 존재하는 인스턴스를 제공, 만약 존재하지 않는다면 새로 생성.
 
-**Client**\
-플라이급 객체에 대한 참조자를 관리하며 플라이급 객체의 부가적 상태를 저장합니다.
+5. Client - 플라이급 객체에 대한 참조자를 관리하며 플라이급 객체의 부가적 상태를 저장한다.
 
-**Intrinsic State** 는 **ConcreteFlyweight** 에 저장해야 하고,
-
+역시나 포인트는.\
+**Intrinsic State** 는 **ConcreteFlyweight** 에 저장해야 하고,\
 **Extrinsic State**는 사용자가 저장하거나, 연산되어야 하는 다른 상태로 관리해야 한다.
 
 사용자는 연산을 호출할 때 자신에게만 필요한 **Extrinsic State**를 플라이급 객체에 **매개변수로 전달**
