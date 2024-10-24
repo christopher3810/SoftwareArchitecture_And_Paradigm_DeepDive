@@ -45,7 +45,7 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 ### Motivation - 동기
 ---
 
->One of the great bugaboos of software applications over the years has been infiltration of business logic into the user interface code.\ 
+>One of the great bugaboos of software applications over the years has been infiltration of business logic into the user interface code.\
 >The problem this causes is threefold.
 
 수년간 소프트웨어 애플리케이션의 큰 문제 중 하나는 비즈니스 로직이 사용자 인터페이스 코드에 스며드는 현상이다.
@@ -62,7 +62,7 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 
 세 번째로, 여전히 같은 이유로 다른 프로그램이 시스템을 구동하게 하는 것이 매력적으로 보일 때 그렇게 하기 어렵거나 불가능하다.
 
->The attempted solution, repeated in many organizations, is to create a new layer in the architecture, with the promise that this time, really and truly, no business logic will be put into the new layer.\ 
+>The attempted solution, repeated in many organizations, is to create a new layer in the architecture, with the promise that this time, really and truly, no business logic will be put into the new layer.\
 >However, having no mechanism to detect when a violation of that promise occurs, the organization finds a few years later that the new layer is cluttered with business logic and the old problem has reappeared.
 
 여러 조직에서 시도된 해결책은 아키텍처에 새로운 레이어를 추가하는 것이다. 이때 이번에는 정말로 비즈니스 로직을 새 레이어에 넣지 않겠다는 약속을 한다. 
@@ -70,7 +70,7 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 그러나 이를 감지할 메커니즘이 없기 때문에 몇 년 후 새 레이어에도 비즈니스 로직이 엉켜 있는 상태가 되어 기존 문제가 다시 나타나게 된다.
 
 >Imagine now that ‘’every’’ piece of functionality the application offers were available through an API (application programmed interface) or function call. In this situation, the test or QA department can run automated test scripts against the application to detect when any new coding breaks a previously working function.\
->The business experts can create automated test cases, before the GUI details are finalized, that tells the programmers when they have done their work correctly (and these tests become the ones run by the test department).\
+>The business experts can create automated test cases, before the GUI details are finalized, that tells the programmers when they have done their work correctly (and these tests become the ones run by the test department).
 
 이제 애플리케이션이 제공하는 모든 기능이 API(애플리케이션 프로그래밍 인터페이스)나 함수 호출을 통해 사용할 수 있다고 상상해 보라.
 
@@ -78,11 +78,11 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 
 비즈니스 전문가들은 GUI 세부 사항이 확정되기 전에 자동화된 테스트 케이스를 생성하여 프로그래머가 작업을 제대로 완료했는지 알려주며, 이러한 테스트는 테스트 부서에서 실행되는 테스트가 된다.
 
->The application can be deployed in ‘’headless’’ mode, so only the API is available, and other programs can make use of its functionality — this simplifies the overall design of complex application suites and also permits business-to-business service applications to use each other without human intervention over the web.\ 
->Finally, the automated function regression tests detect any violation of the promise to keep business logic out of the presentation layer.\ 
+>The application can be deployed in ‘’headless’’ mode, so only the API is available, and other programs can make use of its functionality — this simplifies the overall design of complex application suites and also permits business-to-business service applications to use each other without human intervention over the web.\
+>Finally, the automated function regression tests detect any violation of the promise to keep business logic out of the presentation layer.\
 >The organization can detect, and then correct, the logic leak.
 
-애플리케이션은 ‘headless’ 모드로 배포될 수 있으므로 API만 사용할 수 있으며, 다른 프로그램이 이 기능을 사용할 수 있다.\ 
+애플리케이션은 ‘headless’ 모드로 배포될 수 있으므로 API만 사용할 수 있으며, 다른 프로그램이 이 기능을 사용할 수 있다.
 
 이는 복잡한 애플리케이션 스위트의 전체 설계를 단순화하고, 비즈니스 간 서비스 애플리케이션이 웹을 통해 인간의 개입 없이 서로를 사용할 수 있게 한다.\ 
 
@@ -90,8 +90,8 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 
 조직은 로직 유출을 감지하고 이를 수정할 수 있다.
 
->An interesting similar problem exists on what is normally considered “the other side” of the application, where the application logic gets tied to an external database or other service.\ 
->When the database server goes down or undergoes significant rework or replacement, the programmers can’t work because their work is tied to the presence of the database.\ 
+>An interesting similar problem exists on what is normally considered “the other side” of the application, where the application logic gets tied to an external database or other service.\
+>When the database server goes down or undergoes significant rework or replacement, the programmers can’t work because their work is tied to the presence of the database.\
 >This causes delay costs and often bad feelings between the people.
 
 애플리케이션의 ‘다른 측면’에서 유사한 문제가 존재한다. 
@@ -107,8 +107,8 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 ### Nature of the Solution - 해결방안의 본질
 ---
 
->Both the user-side and the server-side problems actually are caused by the same error in design and programming — the entanglement between the business logic and the interaction with external entities.\ 
->The asymmetry to exploit is not that between ‘’left’’ and ‘’right’’ sides of the application but between ‘’inside’’ and ‘’outside’’ of the application.\ 
+>Both the user-side and the server-side problems actually are caused by the same error in design and programming — the entanglement between the business logic and the interaction with external entities.\
+>The asymmetry to exploit is not that between ‘’left’’ and ‘’right’’ sides of the application but between ‘’inside’’ and ‘’outside’’ of the application.\
 >The rule to obey is that code pertaining to the ‘’inside’’ part should not leak into the ‘’outside’’ part.
 
 사용자 측 문제와 서버 측 문제는 사실 설계 및 프로그래밍에서 동일한 오류, 즉 비즈니스 로직과 외부 엔티티와의 상호작용 간의 얽힘에 의해 발생한다.\ 
@@ -117,8 +117,8 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 
 준수해야 할 규칙은 '내부'에 해당하는 코드가 '외부' 부분으로 누출되지 않도록 하는 것이다.
 
->Removing any left-right or up-down asymmetry for a moment, we see that the application communicates over ‘’ports’’ to external agencies.\ 
->The word “port” is supposed to evoke thoughts of ‘’ports’’ in an operating system, where any device that adheres to the protocols of a port can be plugged into it;\
+>Removing any left-right or up-down asymmetry for a moment, we see that the application communicates over ‘’ports’’ to external agencies.\
+>The word “port” is supposed to evoke thoughts of ‘’ports’’ in an operating system, where any device that adheres to the protocols of a port can be plugged into it;
 >and ‘’ports’’ on electronics gadgets, where again, any device that fits the mechanical and electrical protocols can be plugged in.
 
 좌우 또는 상하 비대칭성을 잠시 제거하고 나면, 애플리케이션이 외부 기관과 '포트'를 통해 통신한다는 것을 알 수 있다.
