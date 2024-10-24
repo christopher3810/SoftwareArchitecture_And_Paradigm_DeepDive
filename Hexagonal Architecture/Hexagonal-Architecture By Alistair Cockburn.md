@@ -212,15 +212,16 @@ Ports and Adaptor architecture라고 알려진 Hexagonal architecture는 Alistai
 ### Structure - 구조
 
 ![image](https://github.com/user-attachments/assets/e3fa9c36-14c2-4fda-9ee0-d2f10394c997)
+
 reference : https://alistair.cockburn.us/hexagonal-architecture/
 
 Figure2 - 어뎁터가 포함된 헥사고날 아키텍처
 
->Figure 2 shows an application having two active ports and several adapters for each port.\ 
->The two ports are the application-controlling side and the data-retrieval side.\ 
->This drawing shows that the application can be equally driven by an automated, system-level regression test suite, by a human user, by a remote http application, or by another local application.\ 
->On the data side, the application can be configured to run decoupled from external databases using an in-memory oracle, or ‘’mock’’, database replacement;\ 
->or it can run against the test- or run-time database.\ 
+>Figure 2 shows an application having two active ports and several adapters for each port.\
+>The two ports are the application-controlling side and the data-retrieval side.\
+>This drawing shows that the application can be equally driven by an automated, system-level regression test suite, by a human user, by a remote http application, or by another local application.\
+>On the data side, the application can be configured to run decoupled from external databases using an in-memory oracle, or ‘’mock’’, database replacement;\
+>or it can run against the test- or run-time database.\
 >The functional specification of the application, perhaps in use cases, is made against the inner hexagon’s interface and not against any one of the external technologies that might be used.
 
 Figure2 는 두 개의 활성 포트와 각각 여러 어댑터를 가진 애플리케이션을 보여준다.
@@ -239,8 +240,8 @@ reference : https://alistair.cockburn.us/hexagonal-architecture/
 
 Figure3 - 헥사고날 아키텍처 barn door 이미지.
 
->Figure 3 shows the same application mapped to a three-layer architectural drawing.\ 
->To simplify the drawing only two adapters are shown for each port. This drawing is intended to show how multiple adapters fit in the top and bottom layers, and the sequence in which the various adapters are used during system development.\ 
+>Figure 3 shows the same application mapped to a three-layer architectural drawing.\
+>To simplify the drawing only two adapters are shown for each port. This drawing is intended to show how multiple adapters fit in the top and bottom layers, and the sequence in which the various adapters are used during system development.\
 >The numbered arrows show the order in which a team might develop and use the application.
 
 Figure3 는 동일한 애플리케이션을 삼계층 아키텍처 도식에 매핑한 모습을 보여준다.  
@@ -267,7 +268,7 @@ FIT 테스트 하네스가 애플리케이션을 구동하고 모의(메모리 �
 ### Sample Code 
 ---
 
->The simplest application that demonstrates the ports & adapters fortunately comes with the FIT documentation.\ 
+>The simplest application that demonstrates the ports & adapters fortunately comes with the FIT documentation.\
 >It is a simple discount computing application:
 
 포트와 어댑터를 보여주는 가장 간단한 애플리케이션은 다행히도 FIT 문서에 포함되어 있다.
@@ -276,7 +277,7 @@ FIT 테스트 하네스가 애플리케이션을 구동하고 모의(메모리 �
 
 >discount(amount) = amount * rate(amount);
 
->In our adaptation, the amount will come from the user and the rate will come from a database, so there will be two ports.\ 
+>In our adaptation, the amount will come from the user and the rate will come from a database, so there will be two ports.\
 >We implement them in stages:
 
 우리의 적용에서는 금액이 사용자로부터 입력되고 비율은 데이터베이스에서 가져올 것이므로 두 개의 포트가 필요하다.  
@@ -307,7 +308,7 @@ FIT 테스트 하네스가 애플리케이션을 구동하고 모의(메모리 �
 |100|5|
 |200|10|
 
->Note that the column names will become class and function names in our program.\ 
+>Note that the column names will become class and function names in our program.\
 >FIT contains ways to get rid of this “programmerese”, but for this article it is easier just to leave them in.
 
 열 이름은 프로그램 내의 클래스 및 함수 이름이 될 것이다.
@@ -330,8 +331,8 @@ public class TestDiscounter extends ColumnFixture
 }
 ```
 
->That’s actually all there is to the adapter.\ 
->So far, the tests run from the command line (see the FIT book for the path you’ll need).\ 
+>That’s actually all there is to the adapter.\
+>So far, the tests run from the command line (see the FIT book for the path you’ll need).\
 >We used this one
 
 이것이 어댑터의 전부이다.  
@@ -413,7 +414,7 @@ public class MockRateRepository implements RateRepository
  
 ```
 
->To hook this adapter into the Discounter application, we need to update the application itself to accept a repository adapter to use, and the have the (FIT or UI) user-side adapter pass the repository to use (real or mock) into the constructor of the application itself.\ 
+>To hook this adapter into the Discounter application, we need to update the application itself to accept a repository adapter to use, and the have the (FIT or UI) user-side adapter pass the repository to use (real or mock) into the constructor of the application itself.\
 >Here is the updated application and a FIT adapter that passes in a mock repository (the FIT adapter code to choose whether to pass in the mock or real repository’s adapter is longer without adding much new information, so I omit that version here).
 
 이 어댑터를 Discounter 애플리케이션에 연결하려면, 애플리케이션 자체를 업데이트하여 사용할 저장소 어댑터를 받도록 하고, (FIT 또는 UI) 사용자 측 어댑터가 실제 또는 모의 저장소를 애플리케이션의 생성자로 전달하도록 해야 합니다.
@@ -466,8 +467,8 @@ public class TestDiscounter extends ColumnFixture
 
 #### The Left-Right Asymmetry
 
->The ports and adapters pattern is deliberately written pretending that all ports are fundamentally similar. That pretense is useful at the architectural level.\ 
->In implementation, ports and adapters show up in two flavors, which I’ll call ‘’primary’’ and ‘’secondary’’, for soon-to-be-obvious reasons\ 
+>The ports and adapters pattern is deliberately written pretending that all ports are fundamentally similar. That pretense is useful at the architectural level.\
+>In implementation, ports and adapters show up in two flavors, which I’ll call ‘’primary’’ and ‘’secondary’’, for soon-to-be-obvious reasons\
 >They could be also called ‘’driving’’ adapters and ‘’driven’’ adapters.
 
 포트와 어댑터 패턴은 모든 포트가 근본적으로 유사하다는 가정을 기반으로 의도적으로 작성되었다. 
@@ -478,7 +479,7 @@ public class TestDiscounter extends ColumnFixture
 
 또는 'driving' 어댑터와 'driven' 어댑터라고 부를 수도 있다.
 
->The alert reader will have noticed that in all the examples given, FIT fixtures are used on the left-side ports and mocks on the right.\ 
+>The alert reader will have noticed that in all the examples given, FIT fixtures are used on the left-side ports and mocks on the right.\
 >In the three-layer architecture, FIT sits in the top layer and the mock sits in the bottom layer.
 
 주의 깊은 독자는 모든 예제에서 FIT 픽스처가 좌측 포트에 사용되고,  
@@ -486,8 +487,8 @@ public class TestDiscounter extends ColumnFixture
 
 three-layer architecture 에서는 FIT가 상위 계층에, 모의 객체는 하위 계층에 위치한다.
 
->This is related to the idea from use cases of “primary actors” and “secondary actors”. A ‘’primary actor’’ is an actor that drives the application (takes it out of quiescent state to perform one of its advertised functions).\ 
->A ‘’secondary actor’’ is one that the application drives, either to get answers from or to merely notify.\ 
+>This is related to the idea from use cases of “primary actors” and “secondary actors”. A ‘’primary actor’’ is an actor that drives the application (takes it out of quiescent state to perform one of its advertised functions).\
+>A ‘’secondary actor’’ is one that the application drives, either to get answers from or to merely notify.\
 >The distinction between ‘’primary ‘’and’’ secondary ‘’lies in who triggers or is in charge of the conversation.
 
 이는 유스케이스에서 "primary actors"와 "secondary actors"라는 개념과 관련이 있다.  
@@ -498,7 +499,7 @@ three-layer architecture 에서는 FIT가 상위 계층에, 모의 객체는 하
 
 'primary'와 'secondary'의 차이는 대화의 트리거 또는 주도권이 누구에게 있는지에 달려 있다.
 
->The natural test adapter to substitute for a ‘’primary’’ actor is FIT, since that framework is designed to read a script and drive the application.\ 
+>The natural test adapter to substitute for a ‘’primary’’ actor is FIT, since that framework is designed to read a script and drive the application.\
 >The natural test adapter to substitute for a ‘’secondary’’ actor such as a database is a mock, since that is designed to answer queries or record events from the application.
 
 "primary actor"를 대체할 적합한 테스트 어댑터는 FIT이다.  
@@ -514,7 +515,7 @@ three-layer architecture 에서는 FIT가 상위 계층에, 모의 객체는 하
 '주요 포트'와 '주요 어댑터'를 헥사곤의 좌측(또는 상단)에,  
 '부차적 포트'와 '부차적 어댑터'를 헥사곤의 우측(또는 하단)에 배치한다.
 
->The relationship between primary and secondary ports/adapters and their respective implementation in FIT and mocks is useful to keep in mind, but it should be used as a consequence of using the ports and adapters architecture, not to short-circuit it.\ 
+>The relationship between primary and secondary ports/adapters and their respective implementation in FIT and mocks is useful to keep in mind, but it should be used as a consequence of using the ports and adapters architecture, not to short-circuit it.\
 >The ultimate benefit of a ports and adapters implementation is the ability to run the application in a fully isolated mode.
 
 주요 포트/어댑터와 부차적 포트/어댑터 간의 관계 및 FIT와 모의 객체로의 각각의 구현 관계를 염두에 두는 것이 유용하다.  
@@ -535,7 +536,7 @@ three-layer architecture 에서는 FIT가 상위 계층에, 모의 객체는 하
 
 이러한 유스케이스는 길고, 읽기 어렵고, 지루하며, 유지 비용이 많이 들고 불안정하기 때문에 업계에서 정당하게 나쁜 평판을 얻게 되었다.
 
->Understanding the ports and adapters architecture, we can see that the use cases should generally be written at the application boundary (the inner hexagon), to specify the functions and events supported by the application, regardless of external technology.\ 
+>Understanding the ports and adapters architecture, we can see that the use cases should generally be written at the application boundary (the inner hexagon), to specify the functions and events supported by the application, regardless of external technology.\
 >These use cases are shorter, easier to read, less expensive to maintain, and more stable over time.
 
 포트와 어댑터 아키텍처를 이해하면 유스케이스는 일반적으로  
@@ -558,8 +559,8 @@ three-layer architecture 에서는 FIT가 상위 계층에, 모의 객체는 하
 
 어느 극단도 최적이라고 보이지는 않는다.
 
->The weather system described in the Known Uses has four natural ports: the weather feed, the administrator, the notified subscribers, the subscriber database.\ 
->A coffee machine controller has four natural ports: the user, the database containing the recipes and prices, the dispensers, and the coin box.\ 
+>The weather system described in the Known Uses has four natural ports: the weather feed, the administrator, the notified subscribers, the subscriber database.\
+>A coffee machine controller has four natural ports: the user, the database containing the recipes and prices, the dispensers, and the coin box.\
 >A hospital medication system might have three: one for the nurse, one for the prescription database, and one for the computer-controller medication dispensers.
 
 알려진 사용 예시에서 설명된 기상 시스템은 네 개의 자연스러운 포트를 가지고 있다.
@@ -573,7 +574,7 @@ three-layer architecture 에서는 FIT가 상위 계층에, 모의 객체는 하
 
 간호사, 처방 데이터베이스, 컴퓨터로 제어되는 약물 디스펜서.
 
->It doesn’t appear that there is any particular damage in choosing the “wrong” number of ports, so that remains a matter of intuition.\ 
+>It doesn’t appear that there is any particular damage in choosing the “wrong” number of ports, so that remains a matter of intuition.\
 >My selection tends to favor a small number, two, three or four ports, as described above and in the Known Uses.
 
 '잘못된' 포트의 개수를 선택해도 특별한 손해가 발생하지 않는 것으로 보이므로,  이는 직관의 문제로 남는다.  
@@ -587,9 +588,9 @@ three-layer architecture 에서는 FIT가 상위 계층에, 모의 객체는 하
 
 Figure 4 
 
->Figure 4 shows an application with four ports and several adapters at each port.\ 
->This was derived from an application that listened for alerts from the national weather service about earthquakes, tornadoes, fires and floods, and notified people on their telephones or telephone answering machines.\ 
->At the time we discussed this system, the system’s interfaces were identified and discussed by ‘’technology, linked to purpose’’.\ 
+>Figure 4 shows an application with four ports and several adapters at each port.\
+>This was derived from an application that listened for alerts from the national weather service about earthquakes, tornadoes, fires and floods, and notified people on their telephones or telephone answering machines.\
+>At the time we discussed this system, the system’s interfaces were identified and discussed by ‘’technology, linked to purpose’’.\
 >There was an interface for trigger-data arriving over a wire feed, one for notification data to be sent to answering machines, an administrative interface implemented in a GUI, and a database interface to get their subscriber data.
 
 Figure 4는 각 포트에 여러 어댑터가 있는 네 개의 포트를 가진 애플리케이션을 보여준다.
@@ -600,7 +601,7 @@ Figure 4는 각 포트에 여러 어댑터가 있는 네 개의 포트를 가진
 
 여기에는 전선 피드를 통해 들어오는 트리거 데이터에 대한 인터페이스, 응답기에 보낼 알림 데이터 인터페이스, GUI로 구현된 관리 인터페이스, 그리고 구독자 데이터를 얻기 위한 데이터베이스 인터페이스가 있었다.
 
->The people were struggling because they needed to add an http interface from the weather service, an email interface to their subscribers, and they had to find a way to bundle and unbundle their growing application suite for different customer purchasing preferences.\ 
+>The people were struggling because they needed to add an http interface from the weather service, an email interface to their subscribers, and they had to find a way to bundle and unbundle their growing application suite for different customer purchasing preferences.\
 >They feared they were staring at a maintenance and testing nightmare as they had to implement, test and maintain separate versions for all combinations and permutations.
 
 사람들은 날씨 서비스로부터 http 인터페이스를 추가해야 하고, 구독자들에게 이메일 인터페이스를 추가해야 했으며,  
@@ -608,9 +609,9 @@ Figure 4는 각 포트에 여러 어댑터가 있는 네 개의 포트를 가진
 
 그들은 모든 조합과 순열을 구현, 테스트 및 유지해야 한다는 생각에 유지보수 및 테스트 나이트메어를 마주하고 있다고 두려워했다.
 
->Their shift in design was to architect the system’s interfaces ‘’by purpose’’ rather than by technology, and to have the technologies be substitutable (on all sides) by adapters.\ 
+>Their shift in design was to architect the system’s interfaces ‘’by purpose’’ rather than by technology, and to have the technologies be substitutable (on all sides) by adapters.\
 >They immediately picked up the ability to include the http feed and the email notification (the new adapters are shown in the drawing with dashed lines).\ 
->By making each application executable in headless mode through APIs, they could add an app-to-add adapter and unbundle the application suite, connecting the sub-applications on demand.\ 
+>By making each application executable in headless mode through APIs, they could add an app-to-add adapter and unbundle the application suite, connecting the sub-applications on demand.\
 >Finally, by making each application executable completely in isolation, with test and mock adapters in place, they gained the ability to regression test their applications with stand-alone automated test scripts.
 
 그들의 설계 전환은 시스템의 인터페이스를 '기술'이 아닌 '목적'에 맞게 아키텍처를 설계하고, 어댑터를 통해 기술을 대체 가능하게 하는 것이었다. 
