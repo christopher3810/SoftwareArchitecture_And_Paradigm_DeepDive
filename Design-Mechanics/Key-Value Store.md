@@ -36,13 +36,35 @@
 
 - **최종 일관성(EC) + 충돌 해소**: Dynamo/Cassandra 스타일로 eventual consistency를 택하면, 충돌은 **버저닝 + 벡터시계**로 감지하고 최종 해소는 보통 **클라이언트 리컨실리에이션**이 맡는다. 
 
-- **장애는 일상*
-	- 감지: gossip/heartbeat 멤버십 (PDF p.118~119)  
-	  - 일시 장애: sloppy quorum + hinted handoff (PDF p.119~120)  
-	  - 영구 장애: anti-entropy + Merkle tree (PDF p.120~122)
+백터시계
 
+```mermaid
+flowchart LR
+    %% ① D1: Client writes, handled by Sx
+    D1["① D1 저장<br/>write@Sx<br/>VC = (Sx,1)"] --> 
+
+    %% ② D2: Client reads D1, updates, write handled by Sx again
+    D2["② D2로 덮어쓰기<br/>read D1 -> update -> write@Sx<br/>VC = (Sx,2)"]
+
+    %% ③ D3: read D2 -> update -> write handled by Sy
+    D2 --> D3["③ D3 갱신<br/>read D2 -> update -> write@Sy<br/>VC = (Sx,2),(Sy,1)"]
+
+    %% ④ D4: read D2 -> update -> write handled by Sz
+    D2 --> D4["④ D4 갱신<br/>read D2 -> update -> write@Sz<br/>VC = (Sx,2),(Sz,1)"]
+
+    %% ⑤ conflict detect & resolve -> merged write handled by Sx
+    D3 --> C["⑤ D3 vs D4 읽음<br/>concurrent => 충돌 감지<br/>클라이언트 merge"] --> D5["⑤ D5 기록(수렴)<br/>write@Sx<br/>VC = (Sx,3),(Sy,1),(Sz,1)"]
+    D4 --> C
+
+```
+
+
+- **장애는 일상*
+	- 감지: gossip/heartbeat 멤버십
+	  - 일시 장애: sloppy quorum + hinted handoff 
+	  - 영구 장애: anti-entropy + Merkle tree 
 - **저장 엔진 경로(LSM-tree 계열)**
-	- 쓰기는 commit log→memtable→SSTable, 읽기는 memtable→Bloom filter→SSTable 흐름으로 설계한다. (PDF p.124~126)
+	- 쓰기는 commit log→memtable→SSTable, 읽기는 memtable→Bloom filter→SSTable 흐름으로 설계한다. 
 
 ---
 
@@ -101,43 +123,42 @@ N/W/R을 조합해 특정 워크로드에서 일관성과 지연을 타협한다
 - **Consistency**: 어떤 노드에 붙어도 같은 데이터를 본다(정의 수준)  
 - **Availability**: 일부 노드 장애에도 항상 응답을 받는다  
 - **Partition tolerance**: 네트워크 분할이 나도 시스템이 동작  
-- **CP/AP/CA**: P가 현실에서 필수라 CP 또는 AP 중 선택 (PDF p.106~107)
+- **CP/AP/CA**: P가 현실에서 필수라 CP 또는 AP 중 선택
 
 ### Consistent Hashing (파티션)
-- 해시 링에 노드 배치 → 키를 해시 링에 매핑 → 시계방향 첫 노드가 소유 (PDF p.109~110)
-- **virtual node**로 노드 성능 차이를 흡수(heterogeneity), 분포 균등화 (PDF p.110~111)
+- 해시 링에 노드 배치 → 키를 해시 링에 매핑 → 시계방향 첫 노드가 소유
+- **virtual node**로 노드 성능 차이를 흡수(heterogeneity), 분포 균등화 
 - 노드 추가/삭제 시 **이동 데이터 최소화**, 핫스팟 감소
 
 ### 복제(Replication)
-- 복제 계수 **N**: 키 위치에서 링을 따라 N개의 노드에 사본 저장 (PDF p.111)
-- **물리 서버 중복 선택 방지**(virtual node 사용 시 중요) (PDF p.111)
-- **멀티 데이터센터 복제**로 장애 도메인 분리 (PDF p.122~123)
-
+- 복제 계수 **N**: 키 위치에서 링을 따라 N개의 노드에 사본 저장 
+- **물리 서버 중복 선택 방지**(virtual node 사용 시 중요)
+- **멀티 데이터센터 복제**로 장애 도메인 분리 
 ### 정족수 합의(N/W/R)
 - **W**: 쓰기 성공으로 간주할 최소 응답 수  
 - **R**: 읽기 성공으로 간주할 최소 응답 수  
-- W, R, N은 **지연 ↔ 일관성** 타협점 (PDF p.112~114)
-- 중재자(coordinator)가 프록시처럼 요청을 받아 분산/복제본에 요청 (PDF p.112)
+- W, R, N은 **지연 ↔ 일관성** 타협점 
+- 중재자(coordinator)가 프록시처럼 요청을 받아 분산/복제본에 요청 
 
 ### 일관성 모델
 - **Strong**: 항상 최신 읽기(대신 가용성/지연 희생)  
 - **Weak**: 최신이 아닐 수 있음  
-- **Eventual**: 언젠가 수렴(대규모 분산에서 흔한 선택) (PDF p.113~114)
+- **Eventual**: 언젠가 수렴(대규모 분산에서 흔한 선택) 
 
 ### 불일치 해소: 버저닝 + 벡터시계
-- 각 쓰기마다 새 버전(immutable 버전들) (PDF p.114)
+- 각 쓰기마다 새 버전(immutable 버전들)
 - 벡터시계: (서버ID, 버전카운터)들의 집합으로 “선후관계/동시성” 판별
-- 충돌 해소는 보통 **클라이언트 리컨실리에이션**이 담당 (PDF p.113~117)
-- 벡터시계 항목이 폭증할 수 있어 임계치로 오래된 항목을 제거(정확도↔비용 타협) (PDF p.117)
+- 충돌 해소는 보통 **클라이언트 리컨실리에이션**이 담당 
+- 벡터시계 항목이 폭증할 수 있어 임계치로 오래된 항목을 제거(정확도↔비용 타협)
 
 ### 장애 처리 패턴
-- **감지**: gossip + membership list(heartbeat counter) (PDF p.118~119)
-- **일시 장애**: sloppy quorum + hinted handoff(복구 후 힌트 반영) (PDF p.119~120)
-- **영구 장애**: anti-entropy + Merkle tree(차이만 동기화) (PDF p.120~122)
+- **감지**: gossip + membership list(heartbeat counter) 
+- **일시 장애**: sloppy quorum + hinted handoff(복구 후 힌트 반영) 
+- **영구 장애**: anti-entropy + Merkle tree(차이만 동기화)
 
 ### 저장 엔진(Read/Write Path)
-- 쓰기: **commit log → memtable(mem cache) → SSTable** (PDF p.124~125)
-- 읽기: memtable → **Bloom filter** → SSTable (PDF p.125~126)
+- 쓰기: **commit log → memtable(mem cache) → SSTable** 
+- 읽기: memtable → **Bloom filter** → SSTable
 
 ---
 
